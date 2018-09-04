@@ -39,3 +39,10 @@ beavers_mkd$data[1] %>% cat
 
 beavers_mkd %>% pmap_df(~ markdown_to_df(.y) %>% mutate(beaver = .x))
 
+
+## To compare before/after you can use `all.equal` function. Objects won't always match up, but this example shows it can:
+
+df_orig = ggplot2::diamonds %>% mutate_if(is.factor, funs(as.character(.)))
+df_string = df_to_stringdf(df_orig)
+df_from_string = stringdf_to_df(df_string)
+all.equal(df_orig, df_from_string)
