@@ -1,0 +1,13 @@
+Package: stringDataFrame
+Type: Package
+Title: String Data Frame
+Version: 0.1.0
+Author: Robin Edwards (@geotheory)
+Description: Data.frame to string/markdown table conversion and back
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports:
+    tidyverse,
+    knitr
+RoxygenNote: 6.1.0
