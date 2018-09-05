@@ -33,5 +33,5 @@
     ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-  # see https://github.com/geotheory/stringDataFrame and ?df_to_string for usage guides
+  # see https://github.com/geotheory/stringDataFrame and ?df_to_stringdf for usage guides
 }

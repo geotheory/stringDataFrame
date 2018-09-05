@@ -2,7 +2,7 @@
 ##' String Data Frames
 ##' @description This package provides 2 methods to convert a data.frame/tibble to a single character string and back to its original form (largely intact).  Conversion is either to an unformatted string or a markdown table.
 ##'
-##' The aim is to provide a method to convert data.frames that are embedded inside other data.frames (as list fields) to a form that enables them to be saved to a single external database table rather (than requiring a relational multi-table approach), but so the embedded string_data_frames can be easily returned to data.frame format when returned to R.
+##' The aim is to provide a method to convert data.frames that are embedded inside other data.frames (as list fields) to a form that enables them to be saved to a single csv file or an external database table (rather than requiring a relational multi-table approach), but so the resulting embedded string_dataframes can be easily returned to data.frame format when returned to R.  This might suit you if your embedded dataframes are relatively small, static, or if you don't need to query them on a row-by-row basis.
 ##' @name df_to_stringdf
 ##'
 ##' @param df A data.frame or data_frame to convert to text
@@ -48,6 +48,7 @@ markdown_to_df = function(md_df, trim_ws = TRUE, na = 'NA', data.frame = FALSE){
   lines = gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', lines)
   rebuilt = readr::read_delim(paste(lines, collapse = '\n'), delim = '|',
                               trim_ws = trim_ws, na = na)
+  if(!is.null(attr(rebuilt, 'spec'))) attr(rebuilt, 'spec') = NULL # remove read_delim addon
   if(!data.frame) return(rebuilt)
   as.data.frame(rebuilt)
 }

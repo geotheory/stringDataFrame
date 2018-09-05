@@ -2,7 +2,7 @@
 
 This package provides 2 methods to convert data.frames/tibbles to a single character string and back to their original form (largely intact).  Conversion is either to a string or a markdown table.
 
-The aim is to provide a method to convert data.frames that are embedded inside other data.frames (as list fields) to a form that enables them to be saved to a single external database table (rather than requiring a relational multi-table approach), but so the embedded string_data_frames can be easily returned to data.frame format when returned to R.  This might suit you if your embedded dataframes are relatively small, static, or if you don't need to query them on a row-by-row basis.
+The aim is to provide a method to convert data.frames that are embedded inside other data.frames (as list fields) to a form that enables them to be saved to a single csv file or an external database table (rather than requiring a relational multi-table approach), but so the resulting embedded string_dataframes can be easily returned to data.frame format when returned to R.  This might suit you if your embedded dataframes are relatively small, static, or if you don't need to query them on a row-by-row basis.
 
 
 ### Installation
@@ -122,12 +122,12 @@ A demo data_frame:
 
 **Comparing before/after conversion:**
 
-To compare before/after you can use `all.equal` function. Objects won't always match up, but this example shows it can:
+To compare before/after you can use `all_equal` function (`convert=TRUE` recommended) on data.frames with any factors removed. Objects won't always match up exactly (e.g. numbers with long decimals may be truncated to ~7 places), but loss is either very small, or zero as in this example:
 
     df_orig = ggplot2::diamonds %>% mutate_if(is.factor, funs(as.character(.)))
     df_string = df_to_stringdf(df_orig)
     df_from_string = stringdf_to_df(df_string)
-    all.equal(df_orig, df_from_string)
+    all_equal(df_orig, df_from_string, convert=TRUE)
     [1] TRUE
 
 
