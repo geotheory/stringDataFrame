@@ -16,8 +16,8 @@
 df_to_stringdf = function(df, rownames = FALSE){
   suppressMessages(require(dplyr))
   if(rownames & class(df)[1] == 'data.frame') df = df %>% as_data_frame(rownames='name')
-  df %>% purrr::imap(~ paste(.y, paste(stringr::str_replace_all(.x,'[|]',';'), collapse=' | '), sep=': ')) %>%
-    paste(collapse = ' |> ')
+  df %>% purrr::imap(~ paste(.y, paste(stringr::str_replace_all(.x,'[|]','\u2758'), collapse=' | '), sep=': ')) %>%
+    paste(collapse = ' |> ') # '\u2758' is temp unicode sub for any '|' chars
 }
 ##'
 ##' @rdname df_to_stringdf
@@ -33,7 +33,8 @@ stringdf_to_df = function(str_df, data.frame = FALSE){
   rebuilt = purrr::flatten(stringr::str_split(str_df, stringr::fixed(' |> '))[[1]] %>% purrr::map(~ {
     setNames(object = stringr::str_remove(.x, '^[^:]+: ') %>% stringr::str_split(stringr::fixed(' | ')),
              nm = stringr::str_extract(.x, '^[^:]+'))
-  })) %>% purrr::map(~ replace(.x, .x == 'NA', NA)) %>% as_data_frame %>%
+  })) %>% purrr::map(~ str_replace_all(.x, '\u2758', '|')) %>% # return '|' chars
+    purrr::map(~ replace(.x, .x == 'NA', NA)) %>% as_data_frame %>%
     purrr::map_df(~ readr::parse_guess(.x, na='NA'))
   if(!data.frame) return(rebuilt)
   as.data.frame(rebuilt)

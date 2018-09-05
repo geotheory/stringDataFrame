@@ -5,7 +5,7 @@ set.seed(1)
 df_orig = data_frame(`item date` = seq(as.Date('2018-01-01'), as.Date('2018-01-05'), 1),
                      id = 1:5, grp = c('A','A','B','B','B'),
                      val = c(NA, rlnorm(4, sd=10)), condition = c(T,F,F,T,T),
-                     txt = c(NA, '', 'The quick brown fox', 'jumped over the', 'quick brown dog.'))
+                     txt = c(NA, '', 'The quick brown fox', 'jumped over the', 'quick | brown dog.'))
 print(df_orig)
 
 

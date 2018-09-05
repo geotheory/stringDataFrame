@@ -21,7 +21,7 @@ A demo data_frame:
     df_orig = data_frame(`item date` = seq(as.Date('2018-01-01'), as.Date('2018-01-05'), 1),
                          id = 1:5, grp = c('A','A','B','B','B'),
                          val = c(NA, rlnorm(4, sd=10)), condition = c(T,F,F,T,T),
-                         txt = c(NA, '', 'The quick brown fox', 'jumped over the', 'quick brown dog.'))
+                         txt = c(NA, '', 'The quick brown fox', 'jumped over the', 'quick | brown dog.'))
     print(df_orig)
     #> # A tibble: 5 x 6
     #>   `item date`    id grp        val condition txt
@@ -30,13 +30,13 @@ A demo data_frame:
     #> 2 2018-01-02      2 A      1.90e-3 FALSE     ""
     #> 3 2018-01-03      3 B      6.27e+0 FALSE     The quick brown fox
     #> 4 2018-01-04      4 B      2.35e-4 TRUE      jumped over the
-    #> 5 2018-01-05      5 B      8.48e+6 TRUE      quick brown dog.
+    #> 5 2018-01-05      5 B      8.48e+6 TRUE      quick | brown dog.
 
 **Conversion to string dataframes:**
 
     df_string = df_to_stringdf(df_orig)
     cat(df_string)
-    #> item date: 2018-01-01 | 2018-01-02 | 2018-01-03 | 2018-01-04 | 2018-01-05 |> id: 1 | 2 | 3 | 4 | 5 |> grp: A | A | B | B | B |> val: NA | 0.00190259200865651 | 6.27412003815427 | 0.000234915161451801 | 8476498.59847671 |> condition: TRUE | FALSE | FALSE | TRUE | TRUE |> txt: NA |  | The quick brown fox | jumped over the | quick brown dog.
+    #> item date: 2018-01-01 | 2018-01-02 | 2018-01-03 | 2018-01-04 | 2018-01-05 |> id: 1 | 2 | 3 | 4 | 5 |> grp: A | A | B | B | B |> val: NA | 0.00190259200865651 | 6.27412003815427 | 0.000234915161451801 | 8476498.59847671 |> condition: TRUE | FALSE | FALSE | TRUE | TRUE |> txt: NA |  | The quick brown fox | jumped over the | quick ❘ brown dog.
 
     df_from_string = stringdf_to_df(df_string)
     print(df_from_string)
@@ -47,7 +47,7 @@ A demo data_frame:
     #> 2 2018-01-02      2 A      1.90e-3 FALSE     ""
     #> 3 2018-01-03      3 B      6.27e+0 FALSE     The quick brown fox
     #> 4 2018-01-04      4 B      2.35e-4 TRUE      jumped over the
-    #> 5 2018-01-05      5 B      8.48e+6 TRUE      quick brown dog.
+    #> 5 2018-01-05      5 B      8.48e+6 TRUE      quick | brown dog.
 
 
 **Conversion to markdown tables:**
@@ -55,12 +55,12 @@ A demo data_frame:
     df_markdown = df_to_markdown(df_orig)
     cat(df_markdown)
     #> item date     id  grp             val  condition   txt
-    #> -----------  ---  ----  -------------  ----------  --------------------
+    #> -----------  ---  ----  -------------  ----------  ----------------------
     #> 2018-01-01     1  A                NA  TRUE        NA
     #> 2018-01-02     2  A      1.902600e-03  FALSE
     #> 2018-01-03     3  B      6.274120e+00  FALSE       The quick brown fox
     #> 2018-01-04     4  B      2.349000e-04  TRUE        jumped over the
-    #> 2018-01-05     5  B      8.476499e+06  TRUE        quick brown dog.
+    #> 2018-01-05     5  B      8.476499e+06  TRUE        quick &#124; brown dog.
 
     df_from_markdown = markdown_to_df(df_markdown)
     print(df_from_markdown)
@@ -71,7 +71,7 @@ A demo data_frame:
     #> 2 2018-01-02     2  A      1.902600e-03  FALSE
     #> 3 2018-01-03     3  B      6.274120e+00  FALSE       The quick brown fox
     #> 4 2018-01-04     4  B      2.349000e-04  TRUE        jumped over the
-    #> 5 2018-01-05     5  B      8.476499e+06  TRUE        quick brown dog.
+    #> 5 2018-01-05     5  B      8.476499e+06  TRUE        quick | brown dog.
 
 
 **Handling list-embedded data.frames**
