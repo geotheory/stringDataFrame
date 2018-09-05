@@ -11,14 +11,17 @@ df_to_stringdf(df, rownames = FALSE)
 
 df_to_markdown(df)
 
-stringdf_to_df(str_df, data.frame = FALSE)
+stringdf_to_df(str_df, col_classes = NULL, data.frame = FALSE)
 
-markdown_to_df(md_df, trim_ws = TRUE, na = "NA", data.frame = FALSE)
+markdown_to_df(md_df, col_classes = NULL, na = "NA",
+  data.frame = FALSE)
 }
 \arguments{
 \item{df}{A data.frame or data_frame to convert to text}
 
 \item{str_df}{A string dataframe output by df_to_stringdf(...)}
+
+\item{col_classes}{A character vector of classes to coerce columns to (length to match column count)}
 
 \item{data.frame}{Return rebuilt data.frames instead of tibbles}
 
